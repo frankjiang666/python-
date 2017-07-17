@@ -129,6 +129,7 @@ def gj_Solve(A, b, decPts=4, epsilon = 1.0e-16):
                     GJ.append([round(answer[i], decPts)])
 
             return GJ
+# test
 
 A = [[1, 3, 1],
      [2, 1, 1],
