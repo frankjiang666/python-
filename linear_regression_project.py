@@ -5,7 +5,7 @@
 # 
 # ## 1.1 创建一个 4*4 的单位矩阵
 
-# In[1]:
+# In[120]:
 
 
 # 这个项目设计来帮你熟悉 python list 和线性代数
@@ -35,7 +35,7 @@ print identity_matrix(4)
 
 # ## 1.2 返回矩阵的行数和列数
 
-# In[2]:
+# In[121]:
 
 
 # TODO 返回矩阵的行数和列数
@@ -50,7 +50,7 @@ def shape(M):
 
 # ## 1.3 每个元素四舍五入到特定小数数位
 
-# In[3]:
+# In[122]:
 
 
 # TODO 每个元素四舍五入到特定小数数位
@@ -67,7 +67,7 @@ def matxRound(M, decPts = 4):
 
 # ## 1.4 计算矩阵的转置
 
-# In[4]:
+# In[123]:
 
 
 # TODO 计算矩阵的转置
@@ -81,7 +81,7 @@ def transpose(M):
 
 # ## 1.5 计算矩阵乘法 AB
 
-# In[5]:
+# In[124]:
 
 
 # TODO 计算矩阵乘法 AB，如果无法相乘则返回None
@@ -108,7 +108,7 @@ def matxMultiply(A, B):
 
 # **提示：** 你可以用`from pprint import pprint`来更漂亮的打印数据，详见[用法示例](http://cn-static.udacity.com/mlnd/images/pprint.png)和[文档说明](https://docs.python.org/2/library/pprint.html#pprint.pprint)。
 
-# In[6]:
+# In[125]:
 
 
 #TODO 测试1.2 返回矩阵的行和列
@@ -117,7 +117,12 @@ import pprint
 pp = pprint.PrettyPrinter(indent=1, width=20)
 print '测试1.2 返回矩阵的行和列'
 pp.pprint(B)
+
+print '-----正确的答案应该是-----'
+print '\n (3,4)'
+print '我得到的答案如下：'
 print(shape(B))
+
 
 #TODO 测试1.3 每个元素四舍五入到特定小数数位
 
@@ -126,6 +131,11 @@ print '测试1.3 每个元素四舍五入到特定小数数位'
 C = [[1.123456, 2.123456],
      [3.123456, 4.123456]]
 matxRound(C)
+
+print '-----正确的答案应该是-----' 
+print '\n[[1.12345, 2.12345],'      '\n [3.12345, 4.12345]]'
+print '我得到的答案如下：'
+
 pp.pprint(C)
 
 #TODO 测试1.4 计算矩阵的转置
@@ -137,6 +147,10 @@ M_test = [[1,2,3],
           [4,5,6]]
 M_test_t = transpose(M_test)
 pp.pprint(M_test)
+print '-----正确的答案应该是-----'
+
+print '\n [[1, 4],'      '\n [2, 5],'      '\n [3, 6]]'
+print '我得到的答案如下：'
 pp.pprint(M_test_t)
 
 #TODO 测试1.5 计算矩阵乘法AB，AB无法相乘
@@ -149,6 +163,8 @@ A = [[1,2],
 B = [[1,2,3,5], 
      [2,3,3,5], 
      [1,2,5,1]]
+print '-----正确的答案是应该返回 None -----'
+print '我得到的结果是：'
 pp.pprint(matxMultiply(A, B))
 
 #TODO 测试1.5 计算矩阵乘法AB，AB可以相乘
@@ -161,6 +177,11 @@ A = [[1,2,3],
 B = [[1,2,3,5], 
      [2,3,3,5], 
      [1,2,5,1]]
+
+print '-----正确的答案应该是-----'
+print '\n [[8, 14, 24, 18],'      '\n [11, 19, 30, 28],'      '\n [10, 18, 34, 20]]'
+
+print '我得到的答案如下：'
 pp.pprint(matxMultiply(A,B))
 
 
@@ -189,16 +210,20 @@ pp.pprint(matxMultiply(A,B))
 #     ...    & ... & ... & ...& ...\\
 #     a_{n1}    & a_{n2} & ... & a_{nn} & b_{n} \end{bmatrix}$
 
-# In[7]:
+# In[126]:
 
 
 # TODO 构造增广矩阵，假设A，b行数相同
 
 # 遍历A矩阵每行并appen对应b的每行
+# 利用copy.deepcopy来深拷贝矩阵A，不改变原来的矩阵
+import copy
 def augmentMatrix(A, b):
-    for i in range(len(b)):
-        A[i].append(b[i][0])
-    return A
+    A_augment = copy.deepcopy(A)
+    b_augment = copy.deepcopy(b)
+    for i in range(len(b_augment)):
+        A_augment[i].append(b_augment[i][0])
+    return A_augment
 
 
 # ## 2.2 初等行变换
@@ -206,7 +231,7 @@ def augmentMatrix(A, b):
 # - 把某行乘以一个非零常数
 # - 把某行加上另一行的若干倍：
 
-# In[8]:
+# In[127]:
 
 
 # TODO r1 <---> r2
@@ -262,7 +287,7 @@ def addScaledRow(M, r1, r2, scale):
 # ### 注：
 # 我们并没有按照常规方法先把矩阵转化为行阶梯形矩阵，再转换为化简行阶梯形矩阵，而是一步到位。如果你熟悉常规方法的话，可以思考一下两者的等价性。
 
-# In[9]:
+# In[128]:
 
 
 # TODO 实现 Gaussain Jordan 方法求解 Ax = b
@@ -363,17 +388,15 @@ print gj_Solve(A, b)
 # 
 # TODO 证明：
 
-# ## 根据定义:方阵的行列式为零的话，此矩阵为奇异矩阵
-
-# In[10]:
+# In[129]:
 
 
-get_ipython().run_cell_magic(u'latex', u'', u'$ det(A) = det(I) \\cdot det(Y)-det(X) \\cdot det(Z)\\\\$\n\n$ det(Y) = 0\\\\$\n\n$ det(Z) = 0\\\\$\n\n$ A = \\begin{bmatrix}\nI    & X \\\\\nZ    & Y \\\\\n\\end{bmatrix} $is Singular_Matrices')
+get_ipython().run_cell_magic(u'latex', u'', u'\n$$\\text{\u6839\u636e\u5b9a\u4e49:\u5982\u679c\u4e00\u4e2a\u65b9\u9488\u7684\u884c\u5217\u5f0f\u4e3a\u96f6\u7684\u8bdd\uff0c\u6b64\u77e9\u9635\u4e3a\u5947\u5f02\u77e9\u9635}$$\n\n$$\\text{\u6839\u636e\u9898\u76ee\u53d9\u8ff0\uff0c\u5df2\u77e5\u6b64\u77e9\u9635\u4e3a\u65b9\u9635}$$\n\n$$\\text{\u53e6\uff0c\u6b64\u65b9\u9635\u7684\u884c\u5217\u5f0f\u8868\u8fbe\u5982\u4e0b\uff1a}$$\n\n$$ det(A) = det(I) \\cdot det(Y)-det(X) \\cdot det(Z)\\\\$$\n\n$$\\text{\u56e0\u4e3a\u5df2\u77e5Y\u7684\u7b2c\u4e00\u5217\u51680\uff0c\u90a3\u4e48\u6839\u636e\u884c\u5217\u5f0f\u4e3a\u96f6\u7684\u6027\u8d28\u4e4b\u4e00}\uff1a$$\n\n$$\\text{\u884c\u5217\u5f0f\u7684\u4e00\u884c\uff08\u6216\u4e00\u5217\uff09\u7684\u5143\u7d20\u4e3a0\uff0c\u5219\u884c\u5217\u5f0f\u7684\u503c\u4e3a0}$$\n\n$$\\text{\u6240\u4ee5\u6211\u4eec\u53ef\u4ee5\u5f97\u51fa\uff1a}$$\n\n$$ det(Y) = 0\\\\$$\n\n$$\\text{\u53c8\u6839\u636e\u9898\u76ee\u5df2\u77e5Z \u4e3a\u51680\u77e9\u9635\uff0c\u5373\uff1a}$$\n\n$$ det(Z) = 0\\\\$$\n\n$$\\text{  \u628a  } det(Y)\\text{  \u548c  } det(Z) \\text{\u4ee3\u5165\u516c\u5f0f\uff1a} \ndet(I) \\cdot det(Y)-det(X) \\cdot det(Z)\\\\$$\n$$\\text{\u53ef\u4ee5\u5f97\u5230\uff1a} det(A) = 0 $$\n\n$$\\text{\u6240\u4ee5\uff1a} A = \\begin{bmatrix}\nI    & X \\\\\nZ    & Y \\\\\n\\end{bmatrix} \\text{\u662f\u5947\u5f02\u77e9\u9635}$$')
 
 
 # ## 2.5 测试 gj_Solve() 实现是否正确
 
-# In[11]:
+# In[130]:
 
 
 # TODO 构造 矩阵A，列向量b，其中 A 为奇异矩阵
@@ -383,7 +406,7 @@ get_ipython().run_cell_magic(u'latex', u'', u'$ det(A) = det(I) \\cdot det(Y)-de
 # TODO 比较 Ax 与 b
 
 
-# In[12]:
+# In[131]:
 
 
 print '构造 矩阵A，列向量b，其中 A 为奇异矩阵:'
@@ -393,7 +416,7 @@ x = gj_Solve(A, b)
 print x
 
 
-# In[13]:
+# In[132]:
 
 
 print '构造 矩阵A，列向量b，其中 A 为非奇异矩阵'
@@ -478,7 +501,7 @@ if Ax == b:
 # 
 # TODO 证明：
 
-# In[14]:
+# In[133]:
 
 
 get_ipython().run_cell_magic(u'latex', u'', u'\n$$\\\\$$\n\n$$\n\\text{\u53d8\u6362\u540e\u7684 }X^T\\text{\u4e3a\uff1a }\n$$\n\n$$\nX^T =  \\begin{bmatrix}\nx_1 & x_2 & ... & x_n\\\\\n1 & 1 & ... & 1\\\\\n\\end{bmatrix}\n$$\n\n$$\\\\$$\n\n$$ \n\\text{\u5df2\u77e5\uff1a }\nY =  \\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n... \\\\\ny_n\n\\end{bmatrix}\n,\nX =  \\begin{bmatrix}\nx_1 & 1 \\\\\nx_2 & 1\\\\\n... & ...\\\\\nx_n & 1 \\\\\n\\end{bmatrix},\nh =  \\begin{bmatrix}\nm \\\\\nb \\\\\n\\end{bmatrix}\n$$\n\n$$\n\\text{\u63a8\u5bfc\u51fa }\\text{\uff1a }\n$$\n\n$$\n2X^TXh - 2X^TY = -2X^T(Y-Xh)\n$$\n\n\n$$\\\\$$\n\n$$\nY-Xh = \\begin{bmatrix}\ny_1 - mx_1 - b \\\\\ny_2 - mx_2 - b \\\\\n... \\\\\ny_n - mx_n - b \\\\\n\\end{bmatrix}\n$$\n\n\n\n\n$$\n\\text{\u6240\u4ee5 }\\text{\uff1a }\n$$\n\n$$\n2X^TXh - 2X^TY = -2X^T\\begin{bmatrix}\ny_1 - mx_1 - b \\\\\ny_2 - mx_2 - b \\\\\n... \\\\\ny_n - mx_n - b \\\\\n\\end{bmatrix} = \\begin{bmatrix}\n\\sum_{i=1}^{n}{-2x_i(y_i - mx_i - b)} \\\\\n\\sum_{i=1}^{n}{-2(y_i - mx_i - b)}\n\\end{bmatrix}\n$$\n\n$$\n\\text{\u7136\u540e\u5bf9\u5b9a\u4e49\u7684\u635f\u5931\u51fd\u6570(E)\u6c42m\u3001b\u7684\u504f\u5bfc }\\text{\uff1a }\n$$\n\n\n$$\n\\frac{\\partial E}{\\partial m} = \\sum_{i=1}^{n}{2(y_i - mx_i - b)\\frac{\\partial {(y_i - mx_i - b)}}{\\partial m}} $$\n$$= \\sum_{i=1}^{n}{2(y_i - mx_i - b)(-x_i)} $$\n$$= \\sum_{i=1}^{n}{-2x_i(y_i - mx_i - b)}\n$$\n\n\n$$\n\\frac{\\partial E}{\\partial b} = \\sum_{i=1}^{n}{2(y_i - mx_i - b) \\frac{\\partial {(y_i - mx_i - b)}}{\\partial b}} $$\n$$= \\sum_{i=1}^{n}{2(y_i - mx_i - b)(-1)} $$\n$$= \\sum_{i=1}^{n}{-2(y_i - mx_i - b)}\n$$\n\n\n$$\\\\$$\n$$\\\\$$\n\n$$\n\\text{\u7efc\u4e0a\u6240\u8ff0 }\\text{\uff1a }\n$$\n\n\n$$\n\\frac{\\partial E}{\\partial m} = \\sum_{i=1}^{n}{-2x_i(y_i - mx_i - b)}\n$$\n\n$$\n\\frac{\\partial E}{\\partial b} = \\sum_{i=1}^{n}{-2(y_i - mx_i - b)}\n$$\n\n\n\n$$\n\\begin{bmatrix}\n\\frac{\\partial E}{\\partial m} \\\\\n\\frac{\\partial E}{\\partial b} \n\\end{bmatrix} = 2X^TXh - 2X^TY\n$$')
@@ -528,7 +551,7 @@ get_ipython().run_cell_magic(u'latex', u'', u'\n$$\\\\$$\n\n$$\n\\text{\u53d8\u6
 # 
 # ### 求解方程 $X^TXh = X^TY $, 计算线性回归的最佳参数 h
 
-# In[15]:
+# In[134]:
 
 
 # TODO 实现线性回归
@@ -561,7 +584,7 @@ def linearRegression(points):
 
 # ## 3.3 测试你的线性回归实现
 
-# In[16]:
+# In[135]:
 
 
 # TODO 构造线性函数
@@ -573,15 +596,15 @@ b = 3
 
 # TODO 构造 100 个线性函数上的点，加上适当的高斯噪音
 
-print '构造100个线性函数上的点，加上适当的高斯噪音'
+print '构造100个线性函数上的点，加上适当的高斯噪音，均值为0方差为1'
 
 import random
 
-x_origin = [random.uniform(1,10) for i in range(100)]
+x_origin = [random.uniform(-50,50) for i in range(100)]
 Y_origin = [i * m + b for i in x_origin]
 
-x_gauss = [random.gauss(0, 0.1) for i in range(100)]
-y_gauss = [random.gauss(0, 0.1) for i in range(100)]
+x_gauss = [random.gauss(0, 1) for i in range(100)]
+y_gauss = [random.gauss(0, 1) for i in range(100)]
 
 xx = [x + y for x,y in zip(x_origin, x_gauss)]
 yy = [x + y for x,y in zip(Y_origin, y_gauss)]
@@ -605,7 +628,7 @@ print m_gauss, b_gauss
 # 
 # 请确保你的实现通过了以下所有单元测试。
 
-# In[17]:
+# In[136]:
 
 
 import unittest
@@ -751,4 +774,16 @@ class LinearRegressionTestCase(unittest.TestCase):
 
 suite = unittest.TestLoader().loadTestsFromTestCase(LinearRegressionTestCase)
 unittest.TextTestRunner(verbosity=3).run(suite)
+
+
+# In[120]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
