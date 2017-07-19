@@ -5,7 +5,7 @@
 # 
 # ## 1.1 创建一个 4*4 的单位矩阵
 
-# In[120]:
+# In[1]:
 
 
 # 这个项目设计来帮你熟悉 python list 和线性代数
@@ -35,7 +35,7 @@ print identity_matrix(4)
 
 # ## 1.2 返回矩阵的行数和列数
 
-# In[121]:
+# In[2]:
 
 
 # TODO 返回矩阵的行数和列数
@@ -50,7 +50,7 @@ def shape(M):
 
 # ## 1.3 每个元素四舍五入到特定小数数位
 
-# In[122]:
+# In[3]:
 
 
 # TODO 每个元素四舍五入到特定小数数位
@@ -67,7 +67,7 @@ def matxRound(M, decPts = 4):
 
 # ## 1.4 计算矩阵的转置
 
-# In[123]:
+# In[4]:
 
 
 # TODO 计算矩阵的转置
@@ -81,7 +81,7 @@ def transpose(M):
 
 # ## 1.5 计算矩阵乘法 AB
 
-# In[124]:
+# In[5]:
 
 
 # TODO 计算矩阵乘法 AB，如果无法相乘则返回None
@@ -108,7 +108,7 @@ def matxMultiply(A, B):
 
 # **提示：** 你可以用`from pprint import pprint`来更漂亮的打印数据，详见[用法示例](http://cn-static.udacity.com/mlnd/images/pprint.png)和[文档说明](https://docs.python.org/2/library/pprint.html#pprint.pprint)。
 
-# In[125]:
+# In[6]:
 
 
 #TODO 测试1.2 返回矩阵的行和列
@@ -210,7 +210,7 @@ pp.pprint(matxMultiply(A,B))
 #     ...    & ... & ... & ...& ...\\
 #     a_{n1}    & a_{n2} & ... & a_{nn} & b_{n} \end{bmatrix}$
 
-# In[126]:
+# In[7]:
 
 
 # TODO 构造增广矩阵，假设A，b行数相同
@@ -231,7 +231,7 @@ def augmentMatrix(A, b):
 # - 把某行乘以一个非零常数
 # - 把某行加上另一行的若干倍：
 
-# In[127]:
+# In[8]:
 
 
 # TODO r1 <---> r2
@@ -239,7 +239,7 @@ def augmentMatrix(A, b):
 
 def swapRows(M, r1, r2):
     M[r1], M[r2] = M[r2], M[r1]
-    pass
+    
 
 
 # TODO r1 <--- r1 * scale， scale!=0
@@ -250,7 +250,7 @@ def scaleRow(M, r, scale):
         raise ValueError
     else:
         M[r] = [i * scale for i in M[r]]
-    pass
+    
 
 
 # TODO r1 <--- r1 + r2*scale
@@ -259,7 +259,6 @@ def scaleRow(M, r, scale):
 def addScaledRow(M, r1, r2, scale):
     x = [i * scale for i in M[r2]]
     M[r1] = [a + b for a, b in zip(M[r1], x)]
-    pass
 
 
 # ## 2.3  Gaussian Jordan 消元法求解 Ax = b
@@ -287,7 +286,7 @@ def addScaledRow(M, r1, r2, scale):
 # ### 注：
 # 我们并没有按照常规方法先把矩阵转化为行阶梯形矩阵，再转换为化简行阶梯形矩阵，而是一步到位。如果你熟悉常规方法的话，可以思考一下两者的等价性。
 
-# In[128]:
+# In[9]:
 
 
 # TODO 实现 Gaussain Jordan 方法求解 Ax = b
@@ -388,15 +387,15 @@ print gj_Solve(A, b)
 # 
 # TODO 证明：
 
-# In[129]:
+# In[10]:
 
 
-get_ipython().run_cell_magic(u'latex', u'', u'\n$$\\text{\u6839\u636e\u5b9a\u4e49:\u5982\u679c\u4e00\u4e2a\u65b9\u9488\u7684\u884c\u5217\u5f0f\u4e3a\u96f6\u7684\u8bdd\uff0c\u6b64\u77e9\u9635\u4e3a\u5947\u5f02\u77e9\u9635}$$\n\n$$\\text{\u6839\u636e\u9898\u76ee\u53d9\u8ff0\uff0c\u5df2\u77e5\u6b64\u77e9\u9635\u4e3a\u65b9\u9635}$$\n\n$$\\text{\u53e6\uff0c\u6b64\u65b9\u9635\u7684\u884c\u5217\u5f0f\u8868\u8fbe\u5982\u4e0b\uff1a}$$\n\n$$ det(A) = det(I) \\cdot det(Y)-det(X) \\cdot det(Z)\\\\$$\n\n$$\\text{\u56e0\u4e3a\u5df2\u77e5Y\u7684\u7b2c\u4e00\u5217\u51680\uff0c\u90a3\u4e48\u6839\u636e\u884c\u5217\u5f0f\u4e3a\u96f6\u7684\u6027\u8d28\u4e4b\u4e00}\uff1a$$\n\n$$\\text{\u884c\u5217\u5f0f\u7684\u4e00\u884c\uff08\u6216\u4e00\u5217\uff09\u7684\u5143\u7d20\u4e3a0\uff0c\u5219\u884c\u5217\u5f0f\u7684\u503c\u4e3a0}$$\n\n$$\\text{\u6240\u4ee5\u6211\u4eec\u53ef\u4ee5\u5f97\u51fa\uff1a}$$\n\n$$ det(Y) = 0\\\\$$\n\n$$\\text{\u53c8\u6839\u636e\u9898\u76ee\u5df2\u77e5Z \u4e3a\u51680\u77e9\u9635\uff0c\u5373\uff1a}$$\n\n$$ det(Z) = 0\\\\$$\n\n$$\\text{  \u628a  } det(Y)\\text{  \u548c  } det(Z) \\text{\u4ee3\u5165\u516c\u5f0f\uff1a} \ndet(I) \\cdot det(Y)-det(X) \\cdot det(Z)\\\\$$\n$$\\text{\u53ef\u4ee5\u5f97\u5230\uff1a} det(A) = 0 $$\n\n$$\\text{\u6240\u4ee5\uff1a} A = \\begin{bmatrix}\nI    & X \\\\\nZ    & Y \\\\\n\\end{bmatrix} \\text{\u662f\u5947\u5f02\u77e9\u9635}$$')
+get_ipython().run_cell_magic(u'latex', u'', u'\n$$\\text{1: \u56e0\u4e3a\u77e9\u9635\u7684\u8f6c\u7f6e\u4e0d\u6539\u53d8\u884c\u5217\u5f0f\uff0c\u5219}$$\n\n$$ At = \\begin{bmatrix}\nI    & Z \\\\\nX    & Y \\\\\n\\end{bmatrix} $$\n\n$$ \\text{2: \u53c2\u8003\u884c\u5217\u5f0f\u7684\u5c55\u5f00\u89c4\u5219}$$\n$$ \\text{ https://www.mathsisfun.com/algebra/matrix-determinant.html } $$\n$$ \\text{ \u5c55\u5f00\u8f6c\u7f6e\u540eA\u7684\u884c\u5217\u5f0f\uff1a} $$\n\n$$ \\text{3: |At| = |I|*|Y| - |Z|*|X| } $$\n\n$$ \\text{4: \u56e0\u4e3a I \u4e3a\u5355\u4f4d\u77e9\u9635\uff0c|I| = 1*1 - 0*0 = 1} $$\n\n$$ \\text{5: \u56e0\u4e3a\u5df2\u77e5Z\u4e3a\u5168 0 \u77e9\u9635\uff0c\u4e14\u77e9\u9635\u7684\u8f6c\u7f6e\u4e0d\u6539\u53d8\u884c\u5217\u5f0f\uff0c\u7efc\u4e0a\u63a8\u51fa} $$\n\n$$ \\text{|A|=|At|=1*|Y| - 0*|X|=|Y|} $$\n\n$$ \\text{6: \u6839\u636e\u63a8\u8bba\uff0c\u82e5\u884c\u5217\u5f0f\u7684\u67d0\u884c\u5168\u4e3a0\uff0c\u5219\u884c\u5217\u5f0f\u7b49\u4e8e0\uff0c\u6545  |Y| = 0 } $$\n\n$$ \\text{7: \u63a8\u51fa |A| = |Y| = 0} $$\n\n$$ \\text{8: \u6839\u636e\u5b9a\u4e49 \u77e9\u9635\u884c\u5217\u5f0f\u4e3a0\u4e0e\u77e9\u9635\u4e3a\u5947\u5f02\u77e9\u9635\u7b49\u4ef7,\u6545 A \u4e3a\u5947\u5f02\u77e9\u9635} $$')
 
 
 # ## 2.5 测试 gj_Solve() 实现是否正确
 
-# In[130]:
+# In[11]:
 
 
 # TODO 构造 矩阵A，列向量b，其中 A 为奇异矩阵
@@ -406,7 +405,7 @@ get_ipython().run_cell_magic(u'latex', u'', u'\n$$\\text{\u6839\u636e\u5b9a\u4e4
 # TODO 比较 Ax 与 b
 
 
-# In[131]:
+# In[12]:
 
 
 print '构造 矩阵A，列向量b，其中 A 为奇异矩阵:'
@@ -416,7 +415,7 @@ x = gj_Solve(A, b)
 print x
 
 
-# In[132]:
+# In[13]:
 
 
 print '构造 矩阵A，列向量b，其中 A 为非奇异矩阵'
@@ -439,9 +438,8 @@ A = [[1, 3, 1],
 b = [[11],
      [8],
      [10]]
-Ax = []
-for v in range(len(A)):
-    Ax.append([sum([A[v][w]*x[w][0] for w in range(len(A))])])
+
+Ax = matxMultiply(A, x)
     
 print 'Ax:'
 print Ax
@@ -501,7 +499,7 @@ if Ax == b:
 # 
 # TODO 证明：
 
-# In[133]:
+# In[14]:
 
 
 get_ipython().run_cell_magic(u'latex', u'', u'\n$$\\\\$$\n\n$$\n\\text{\u53d8\u6362\u540e\u7684 }X^T\\text{\u4e3a\uff1a }\n$$\n\n$$\nX^T =  \\begin{bmatrix}\nx_1 & x_2 & ... & x_n\\\\\n1 & 1 & ... & 1\\\\\n\\end{bmatrix}\n$$\n\n$$\\\\$$\n\n$$ \n\\text{\u5df2\u77e5\uff1a }\nY =  \\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n... \\\\\ny_n\n\\end{bmatrix}\n,\nX =  \\begin{bmatrix}\nx_1 & 1 \\\\\nx_2 & 1\\\\\n... & ...\\\\\nx_n & 1 \\\\\n\\end{bmatrix},\nh =  \\begin{bmatrix}\nm \\\\\nb \\\\\n\\end{bmatrix}\n$$\n\n$$\n\\text{\u63a8\u5bfc\u51fa }\\text{\uff1a }\n$$\n\n$$\n2X^TXh - 2X^TY = -2X^T(Y-Xh)\n$$\n\n\n$$\\\\$$\n\n$$\nY-Xh = \\begin{bmatrix}\ny_1 - mx_1 - b \\\\\ny_2 - mx_2 - b \\\\\n... \\\\\ny_n - mx_n - b \\\\\n\\end{bmatrix}\n$$\n\n\n\n\n$$\n\\text{\u6240\u4ee5 }\\text{\uff1a }\n$$\n\n$$\n2X^TXh - 2X^TY = -2X^T\\begin{bmatrix}\ny_1 - mx_1 - b \\\\\ny_2 - mx_2 - b \\\\\n... \\\\\ny_n - mx_n - b \\\\\n\\end{bmatrix} = \\begin{bmatrix}\n\\sum_{i=1}^{n}{-2x_i(y_i - mx_i - b)} \\\\\n\\sum_{i=1}^{n}{-2(y_i - mx_i - b)}\n\\end{bmatrix}\n$$\n\n$$\n\\text{\u7136\u540e\u5bf9\u5b9a\u4e49\u7684\u635f\u5931\u51fd\u6570(E)\u6c42m\u3001b\u7684\u504f\u5bfc }\\text{\uff1a }\n$$\n\n\n$$\n\\frac{\\partial E}{\\partial m} = \\sum_{i=1}^{n}{2(y_i - mx_i - b)\\frac{\\partial {(y_i - mx_i - b)}}{\\partial m}} $$\n$$= \\sum_{i=1}^{n}{2(y_i - mx_i - b)(-x_i)} $$\n$$= \\sum_{i=1}^{n}{-2x_i(y_i - mx_i - b)}\n$$\n\n\n$$\n\\frac{\\partial E}{\\partial b} = \\sum_{i=1}^{n}{2(y_i - mx_i - b) \\frac{\\partial {(y_i - mx_i - b)}}{\\partial b}} $$\n$$= \\sum_{i=1}^{n}{2(y_i - mx_i - b)(-1)} $$\n$$= \\sum_{i=1}^{n}{-2(y_i - mx_i - b)}\n$$\n\n\n$$\\\\$$\n$$\\\\$$\n\n$$\n\\text{\u7efc\u4e0a\u6240\u8ff0 }\\text{\uff1a }\n$$\n\n\n$$\n\\frac{\\partial E}{\\partial m} = \\sum_{i=1}^{n}{-2x_i(y_i - mx_i - b)}\n$$\n\n$$\n\\frac{\\partial E}{\\partial b} = \\sum_{i=1}^{n}{-2(y_i - mx_i - b)}\n$$\n\n\n\n$$\n\\begin{bmatrix}\n\\frac{\\partial E}{\\partial m} \\\\\n\\frac{\\partial E}{\\partial b} \n\\end{bmatrix} = 2X^TXh - 2X^TY\n$$')
@@ -551,7 +549,7 @@ get_ipython().run_cell_magic(u'latex', u'', u'\n$$\\\\$$\n\n$$\n\\text{\u53d8\u6
 # 
 # ### 求解方程 $X^TXh = X^TY $, 计算线性回归的最佳参数 h
 
-# In[134]:
+# In[15]:
 
 
 # TODO 实现线性回归
@@ -584,7 +582,7 @@ def linearRegression(points):
 
 # ## 3.3 测试你的线性回归实现
 
-# In[135]:
+# In[16]:
 
 
 # TODO 构造线性函数
@@ -623,12 +621,14 @@ print m, b
 print '处理后的m, b'
 print m_gauss, b_gauss
 
+print '备注：此为x和y都增加高斯噪音的数据，根据需要可以不加x的高斯噪音'
+
 
 # ## 4.1 单元测试
 # 
 # 请确保你的实现通过了以下所有单元测试。
 
-# In[136]:
+# In[17]:
 
 
 import unittest
@@ -776,13 +776,7 @@ suite = unittest.TestLoader().loadTestsFromTestCase(LinearRegressionTestCase)
 unittest.TextTestRunner(verbosity=3).run(suite)
 
 
-# In[120]:
-
-
-
-
-
-# In[ ]:
+# In[91]:
 
 
 
